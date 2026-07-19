@@ -10,6 +10,10 @@ function initSupabase(){
     console.warn('[supabase] URL/anon 미설정');
     return null;
   }
+  if(!window.supabase || !window.supabase.createClient){
+    console.warn('[supabase] SDK 미로드');
+    return null;
+  }
   _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
   return _sb;
 }
