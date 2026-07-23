@@ -13,6 +13,7 @@
   --line:#2a2b31; --line2:#34363d;
   --ink:#f2f3f6; --soft:#c8cbd2; --dim:#8d939d;
   --cyan:#5be3e8; --cyan-dim:rgba(91,227,232,.10);
+  --avatar-x:0px; --avatar-y:0px; --avatar-scale:1;   /* 아바타 위치·크기 조정 (쮸 방식) */
 }
 *{box-sizing:border-box;margin:0;}
 body{background:var(--bg);display:flex;justify-content:center;padding:26px 0;
@@ -44,8 +45,9 @@ html.embed .stage{border-radius:0;border:none;}
 /* ═══ HOME (poster) ═══ */
 .ghost{position:absolute;right:-30px;bottom:96px;z-index:1;font-family:'Poppins';font-weight:800;
   font-size:150px;letter-spacing:10px;color:rgba(255,255,255,.035);pointer-events:none;}
-.char{position:absolute;right:-4px;bottom:0;height:1272px;width:auto;z-index:8;pointer-events:none;
-  filter:drop-shadow(0 0 34px rgba(0,0,0,.5));}
+.char{position:absolute;right:-4px;bottom:0;width:478px;height:1280px;object-fit:contain;object-position:right bottom;
+  z-index:8;pointer-events:none;transform:translate(var(--avatar-x),var(--avatar-y)) scale(var(--avatar-scale));
+  transform-origin:right bottom;filter:drop-shadow(0 0 34px rgba(0,0,0,.5));}
 
 /* deco lines */
 .dc{position:absolute;z-index:3;}
@@ -99,8 +101,8 @@ html.embed .stage{border-radius:0;border:none;}
 .quote small{display:block;margin-top:9px;font-size:11px;color:var(--dim);font-weight:600;}
 
 .qlinks{display:flex;gap:12px;}
-.qlink{width:46px;height:46px;border:2px solid var(--line2);border-radius:6px;display:flex;
-  align-items:center;justify-content:center;color:var(--cyan);font-weight:800;font-size:14px;
+.qlink{min-width:46px;height:46px;padding:0 18px;border:2px solid var(--line2);border-radius:6px;display:flex;
+  align-items:center;justify-content:center;color:var(--cyan);font-weight:800;font-size:13.5px;
   cursor:pointer;transition:.15s;background:transparent;}
 .qlink:hover{border-color:var(--cyan);background:var(--cyan-dim);}
 
@@ -234,7 +236,7 @@ html.embed .stage{border-radius:0;border:none;}
         <p class="about-p">소통과 노래, 그리고 종합게임까지 —<br>담이들과 함께 만들어가는 버추얼 스트리머 <b>담하로</b>예요.</p>
         <div class="grid2">
           <div class="gi"><b>팬애칭</b><span>쓰담 · 담이들</span></div>
-          <div class="gi"><b>팬네임</b><span>닉네임에 '담'</span><small>ex. 하로담 · 담하로</small></div>
+          <div class="gi"><b>팬네임</b><span>닉네임에 '담'</span></div>
         </div>
       </div>
 
@@ -275,9 +277,9 @@ html.embed .stage{border-radius:0;border:none;}
 
       <!-- QUICK -->
       <div class="qlinks">
-        <span class="qlink" data-v="sched" title="일정">일</span>
-        <span class="qlink" data-v="song" title="노래책">노</span>
-        <span class="qlink" data-v="upbo" title="업보">업</span>
+        <span class="qlink" data-v="sched">일정</span>
+        <span class="qlink" data-v="song">노래</span>
+        <span class="qlink" data-v="upbo">업보</span>
       </div>
 
     </div>
@@ -319,7 +321,7 @@ html.embed .stage{border-radius:0;border:none;}
     </div>
   </div>
 
-  <div class="foot">© 2026 담하로 · 담이들 &nbsp;·&nbsp; <b>Design by 아키텍트 크리에이티브</b></div>
+  <div class="foot">© 2026 담하로 · 담이들</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
