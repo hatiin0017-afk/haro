@@ -16,12 +16,13 @@
   --avatar-x:0px; --avatar-y:0px; --avatar-scale:1;   /* 아바타 위치·크기 조정 (쮸 방식) */
 }
 *{box-sizing:border-box;margin:0;}
-body{background:var(--bg);display:flex;justify-content:center;padding:26px 0;
+body{background:var(--bg);padding:26px 0;
   font-family:'Pretendard',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+body.scaled{overflow-x:hidden;}
 html.embed body{background:transparent;padding:0;}
 .pp{font-family:'Poppins',sans-serif;}
 
-.stage{width:940px;height:1350px;position:relative;background:var(--stage);
+.stage{width:940px;height:1350px;position:relative;background:var(--stage);margin:0 auto;
   border:1px solid #232429;border-radius:12px;overflow:hidden;}
 html.embed .stage{border-radius:0;border:none;}
 
@@ -413,6 +414,29 @@ function renderUpcoming(){
     return '<div class="up-item"><div class="up-date"><b>'+dt.getDate()+'</b><span>'+MO[dt.getMonth()]+' · '+WD[dt.getDay()]+'</span></div><div class="up-main"><div class="up-t">'+(t?t+' · ':'')+esc(e.title)+'</div>'+(e.description?'<div class="up-d">'+esc(e.description)+'</div>':'')+'</div><span class="up-badge" style="background:'+evColor(e)+'">'+evLabel(e)+'</span>'+(e.date===today?'<span class="up-today">TODAY</span>':'')+'</div>';
   }).join('');
 }
+
+/* 고정폭 비율 유지 스케일러 (쮸 고정 스테이지 보강판)
+   — 뷰포트 메타(width=940)가 무시되는 환경에서도 940×1350을 통째로 축소, 내부 레이아웃 불변 */
+(function(){
+  var st=null;
+  function fit(){
+    st=st||document.querySelector('.stage'); if(!st) return;
+    var w=document.documentElement.clientWidth;
+    var s=Math.min(1, w/940);
+    if(s<0.999){
+      st.style.transformOrigin='top left';
+      st.style.transform='scale('+s+')';
+      st.style.marginBottom=(-1350*(1-s))+'px';
+      document.body.classList.add('scaled');
+    }else{
+      st.style.transform=''; st.style.marginBottom='';
+      document.body.classList.remove('scaled');
+    }
+  }
+  addEventListener('resize',fit);
+  document.addEventListener('DOMContentLoaded',fit);
+  fit();
+})();
 
 /* init */
 document.addEventListener('DOMContentLoaded',()=>{
