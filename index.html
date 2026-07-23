@@ -45,12 +45,13 @@ html.embed .stage{border-radius:0;border:none;}
 /* ═══ HOME (poster) ═══ */
 .ghost{position:absolute;right:-30px;bottom:96px;z-index:1;font-family:'Poppins';font-weight:800;
   font-size:150px;letter-spacing:10px;color:rgba(255,255,255,.035);pointer-events:none;}
-.char{position:absolute;right:-4px;bottom:0;width:478px;height:1280px;object-fit:contain;object-position:right bottom;
-  z-index:8;pointer-events:none;transform:translate(var(--avatar-x),var(--avatar-y)) scale(var(--avatar-scale));
+.char{position:absolute;right:-4px;top:0;height:100%;width:auto;   /* 헤더 밑~바닥 풀높이 */
+  z-index:2;pointer-events:none;   /* 콘텐츠(z6) 뒤 배경 레이어 — 쮸 방식 */
+  transform:translate(var(--avatar-x),var(--avatar-y)) scale(var(--avatar-scale));
   transform-origin:right bottom;filter:drop-shadow(0 0 34px rgba(0,0,0,.5));}
 
 /* deco lines */
-.dc{position:absolute;z-index:3;}
+.dc{position:absolute;z-index:1;}
 .dc-a{left:64px;top:48px;width:46px;height:8px;background:var(--cyan);}
 .dc-b{left:124px;top:51px;width:400px;height:2px;background:#3a3b42;}
 .dc-b::after{content:"";position:absolute;right:-16px;top:-3px;width:8px;height:8px;background:#e8eaee;}
