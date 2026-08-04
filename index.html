@@ -6,7 +6,7 @@
 <title>담하로 · 담이들</title>
 <script>if(location.search.indexOf('embed')>-1)document.documentElement.classList.add('embed');</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#070b14; --stage:#0a101e; --panel:rgba(255,255,255,.045); --panel2:rgba(255,255,255,.07);
@@ -23,8 +23,17 @@ body.scaled{overflow-x:hidden;}
 html.embed body{background:transparent;padding:0;}
 .pp{font-family:'Fredoka',sans-serif;}
 
-.stage{width:940px;height:1350px;position:relative;background:var(--stage);margin:0 auto;
-  border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;}
+.stage{width:940px;height:1350px;position:relative;margin:0 auto;
+  border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;
+  /* #27 포스터 스타일: 네이비 그라디언트 + 마젠타 코너 틴트 + 블루프린트 격자 */
+  background:
+    linear-gradient(rgba(120,170,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,170,255,.045) 1px,transparent 1px),
+    radial-gradient(700px 500px at 85% 0%,rgba(190,80,160,.14),transparent 60%),
+    radial-gradient(820px 640px at 78% 78%,rgba(38,84,190,.34),transparent 65%),
+    radial-gradient(640px 480px at 12% 30%,rgba(28,60,150,.22),transparent 65%),
+    var(--stage);
+  background-size:34px 34px,34px 34px,auto,auto,auto,auto;}
 html.embed .stage{border-radius:0;border:none;}
 
 /* ── SKY BACKDROP (aurora + stars) ── */
@@ -76,6 +85,34 @@ html.embed .stage{border-radius:0;border:none;}
 .ghost{position:absolute;right:-26px;bottom:90px;z-index:1;font-family:'Fredoka';font-weight:700;
   font-size:140px;letter-spacing:8px;color:transparent;pointer-events:none;
   -webkit-text-stroke:1.5px rgba(255,255,255,.055);}
+
+/* #27: 흑백 트립틱 패널 — 캐릭터 뒤 3분할 확대 컷 */
+.panes{position:absolute;right:38px;top:74px;height:820px;display:flex;gap:16px;z-index:1;pointer-events:none;}
+.pane{width:126px;height:100%;border:2px solid rgba(255,255,255,.82);border-radius:4px;overflow:hidden;
+  background-image:url('assets/char.png');background-repeat:no-repeat;
+  filter:grayscale(1) brightness(.78) contrast(1.08);
+  box-shadow:0 0 26px rgba(111,216,255,.10),inset 0 0 40px rgba(0,0,0,.45);}
+.pane-1{background-size:560%;background-position:44% 5%;}
+.pane-2{background-size:820%;background-position:55% 2%;}
+.pane-3{background-size:600%;background-position:60% 9%;}
+
+/* #27: 네온 할로 스크리블 */
+.halo{position:absolute;right:44px;top:142px;width:220px;height:220px;z-index:2;pointer-events:none;
+  filter:drop-shadow(0 0 10px rgba(91,227,232,.75)) drop-shadow(0 0 30px rgba(91,227,232,.35));
+  animation:haloSpin 26s linear infinite;transform-origin:center;}
+@keyframes haloSpin{to{transform:rotate(360deg);}}
+
+/* #27: 코너 캐러셀 도트 */
+.dots{position:absolute;z-index:3;display:flex;gap:9px;pointer-events:none;}
+.dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:block;}
+.dots i.f{background:#fff;border-color:#fff;}
+.dots.tl{left:38px;top:86px;} .dots.tr{right:44px;top:86px;justify-content:flex-end;}
+.dots.bl{left:38px;bottom:56px;} .dots.br{right:44px;bottom:56px;}
+
+/* #27: 필기체 오버레이 */
+.script{position:absolute;left:66px;top:34px;z-index:4;font-family:'Caveat',cursive;font-weight:600;
+  font-size:44px;color:rgba(223,244,255,.85);transform:rotate(-4deg);
+  text-shadow:0 0 18px rgba(111,216,255,.45);pointer-events:none;}
 .char{position:absolute;right:-4px;top:0;height:100%;width:auto;z-index:2;pointer-events:none;
   transform:translate(var(--avatar-x),var(--avatar-y)) scale(var(--avatar-scale));
   transform-origin:right bottom;filter:drop-shadow(0 0 40px rgba(111,216,255,.22));
@@ -264,6 +301,19 @@ html.embed .stage{border-radius:0;border:none;}
   <div class="view on" id="view-home">
     <div class="ghost">DAMHARO</div>
 
+    <!-- #27 트립틱 + 할로 + 도트 -->
+    <div class="panes"><span class="pane pane-1"></span><span class="pane pane-2"></span><span class="pane pane-3"></span></div>
+    <svg class="halo" viewBox="0 0 210 210" fill="none" aria-hidden="true">
+      <circle cx="105" cy="105" r="88" stroke="#5be3e8" stroke-width="7" stroke-linecap="round" stroke-dasharray="150 90 200 120"/>
+      <circle cx="105" cy="105" r="64" stroke="#6fd8ff" stroke-width="6" stroke-linecap="round" stroke-dasharray="90 70 140 100" transform="rotate(140 105 105)"/>
+      <circle cx="105" cy="105" r="40" stroke="#5be3e8" stroke-width="6" stroke-linecap="round" stroke-dasharray="60 50 90 60" transform="rotate(250 105 105)"/>
+    </svg>
+    <span class="dots tl"><i class="f"></i><i></i><i></i></span>
+    <span class="dots tr"><i></i><i></i><i class="f"></i></span>
+    <span class="dots bl"><i class="f"></i><i></i><i></i></span>
+    <span class="dots br"><i></i><i></i><i class="f"></i></span>
+
+    <span class="script">Damharo ♪</span>
     <h1 class="bigname"><b>담</b>하로</h1>
     <div class="subline"><span class="pp">FLYING SQUIRREL VTUBER</span><i></i><span>SOOP · 담이들</span></div>
 
