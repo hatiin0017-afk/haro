@@ -57,9 +57,12 @@ html.embed .stage{border-radius:0;border:none;}
   background-image:url('assets/char.png');background-repeat:no-repeat;
   filter:grayscale(1) brightness(.68) contrast(1.1);
   box-shadow:0 0 26px rgba(111,216,255,.10),inset 0 0 60px rgba(0,0,0,.55);}
-.pane-1{background-size:420%;background-position:40% 4%;}
-.pane-2{background-size:560%;background-position:54% 2%;}
-.pane-3{background-size:440%;background-position:66% 10%;}
+/* 하나의 확대 컷(1781×3600 가상 캔버스)을 세 창으로 연속 슬라이스 — #27 방식.
+   pane 오프셋 = 밴드 내 x위치(0/238/476)만큼 이동 → 창 너머로 이어져 보임 */
+.pane{background-size:1781px 3600px;}
+.pane-1{background-position:-272px -282px;}
+.pane-2{background-position:-510px -282px;}
+.pane-3{background-position:-748px -282px;}
 
 /* 네온 할로 스크리블 */
 .halo{position:absolute;left:56%;top:128px;width:230px;height:230px;z-index:2;pointer-events:none;
