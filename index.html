@@ -51,18 +51,18 @@ html.embed .stage{border-radius:0;border:none;}
   font-size:140px;letter-spacing:8px;color:transparent;pointer-events:none;
   -webkit-text-stroke:1.5px rgba(255,255,255,.055);}
 
-/* 흑백 트립틱 */
-.panes{position:absolute;right:38px;top:74px;height:900px;display:flex;gap:16px;z-index:1;pointer-events:none;}
-.pane{width:126px;height:100%;border:2px solid rgba(255,255,255,.82);border-radius:4px;overflow:hidden;
+/* 흑백 트립틱 — #27처럼 중앙 밴드, 캐릭터 양옆으로 보이게 */
+.panes{position:absolute;left:50%;top:96px;transform:translateX(-50%);height:960px;display:flex;gap:26px;z-index:1;pointer-events:none;}
+.pane{width:212px;height:100%;border:2px solid rgba(255,255,255,.82);border-radius:4px;overflow:hidden;
   background-image:url('assets/char.png');background-repeat:no-repeat;
-  filter:grayscale(1) brightness(.78) contrast(1.08);
-  box-shadow:0 0 26px rgba(111,216,255,.10),inset 0 0 40px rgba(0,0,0,.45);}
-.pane-1{background-size:560%;background-position:44% 5%;}
-.pane-2{background-size:820%;background-position:55% 2%;}
-.pane-3{background-size:600%;background-position:60% 9%;}
+  filter:grayscale(1) brightness(.68) contrast(1.1);
+  box-shadow:0 0 26px rgba(111,216,255,.10),inset 0 0 60px rgba(0,0,0,.55);}
+.pane-1{background-size:420%;background-position:40% 4%;}
+.pane-2{background-size:560%;background-position:54% 2%;}
+.pane-3{background-size:440%;background-position:66% 10%;}
 
 /* 네온 할로 스크리블 */
-.halo{position:absolute;right:44px;top:142px;width:220px;height:220px;z-index:2;pointer-events:none;
+.halo{position:absolute;left:56%;top:128px;width:230px;height:230px;z-index:2;pointer-events:none;
   filter:drop-shadow(0 0 10px rgba(91,227,232,.75)) drop-shadow(0 0 30px rgba(91,227,232,.35));
   animation:haloSpin 26s linear infinite;transform-origin:center;}
 @keyframes haloSpin{to{transform:rotate(360deg);}}
@@ -74,9 +74,9 @@ html.embed .stage{border-radius:0;border:none;}
 .dots.tl{left:38px;top:86px;} .dots.tr{right:44px;top:86px;justify-content:flex-end;}
 .dots.br{right:44px;bottom:56px;}
 
-.char{position:absolute;right:-4px;top:0;height:100%;width:auto;z-index:2;pointer-events:none;
-  transform:translate(var(--avatar-x),var(--avatar-y)) scale(var(--avatar-scale));
-  transform-origin:right bottom;filter:drop-shadow(0 0 40px rgba(111,216,255,.22));
+.char{position:absolute;left:50%;bottom:-4px;top:auto;height:87%;width:auto;z-index:2;pointer-events:none;
+  transform:translate(calc(-50% + var(--avatar-x)),var(--avatar-y)) scale(var(--avatar-scale));
+  transform-origin:center bottom;filter:drop-shadow(0 0 40px rgba(111,216,255,.22));
   animation:charFloat 9s ease-in-out infinite;}
 @keyframes charFloat{0%,100%{margin-top:0;}50%{margin-top:-10px;}}
 
