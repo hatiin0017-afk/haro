@@ -60,9 +60,9 @@ html.embed .stage{border-radius:0;border:none;}
 /* 하나의 확대 컷(1781×3600 가상 캔버스)을 세 창으로 연속 슬라이스 — #27 방식.
    pane 오프셋 = 밴드 내 x위치(0/238/476)만큼 이동 → 창 너머로 이어져 보임 */
 .pane{background-size:1781px 3600px;}
-.pane-1{background-position:-272px -282px;}
-.pane-2{background-position:-510px -282px;}
-.pane-3{background-position:-748px -282px;}
+.pane-1{background-position:-600px -499px;}
+.pane-2{background-position:-838px -499px;}
+.pane-3{background-position:-1076px -499px;}
 
 /* 코너 도트 */
 .dots{position:absolute;z-index:3;display:flex;gap:9px;pointer-events:none;}
@@ -95,11 +95,11 @@ html.embed .stage{border-radius:0;border:none;}
 .hero .strip{display:flex;gap:18px;margin-top:14px;font-size:13px;font-weight:600;color:var(--soft);}
 .hero .strip b{color:var(--sky);font-weight:700;margin-right:6px;}
 
-/* ── 허브 버튼 ── */
-.hub{position:absolute;left:60px;bottom:44px;z-index:6;display:flex;gap:11px;}
-.hub a{display:flex;align-items:center;justify-content:center;gap:8px;min-width:118px;height:50px;
-  padding:0 20px;border:1px solid var(--line2);border-radius:12px;color:var(--sky);
-  font-weight:800;font-size:13.5px;text-decoration:none;cursor:pointer;
+/* ── 허브 버튼 (상단 메뉴) ── */
+.hub{position:absolute;right:38px;top:26px;z-index:10;display:flex;gap:9px;}
+.hub a{display:flex;align-items:center;justify-content:center;gap:7px;min-width:92px;height:42px;
+  padding:0 16px;border:1px solid var(--line2);border-radius:11px;color:var(--sky);
+  font-weight:800;font-size:13px;text-decoration:none;cursor:pointer;
   background:rgba(10,16,30,.6);backdrop-filter:blur(8px);
   transition:transform .18s ease,border-color .18s,box-shadow .18s,background .18s;}
 .hub a svg{width:15px;height:15px;stroke:var(--sky);}
