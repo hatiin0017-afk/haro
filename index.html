@@ -64,12 +64,6 @@ html.embed .stage{border-radius:0;border:none;}
 .pane-2{background-position:-510px -282px;}
 .pane-3{background-position:-748px -282px;}
 
-/* 네온 할로 스크리블 */
-.halo{position:absolute;left:56%;top:128px;width:230px;height:230px;z-index:2;pointer-events:none;
-  filter:drop-shadow(0 0 10px rgba(91,227,232,.75)) drop-shadow(0 0 30px rgba(91,227,232,.35));
-  animation:haloSpin 26s linear infinite;transform-origin:center;}
-@keyframes haloSpin{to{transform:rotate(360deg);}}
-
 /* 코너 도트 */
 .dots{position:absolute;z-index:3;display:flex;gap:9px;pointer-events:none;}
 .dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:block;}
@@ -238,7 +232,7 @@ html.embed .stage{border-radius:0;border:none;}
 .upbo-wrap p{margin-top:11px;color:var(--dim);font-size:14px;font-weight:600;}
 
 @media (prefers-reduced-motion:reduce){
-  .halo,.char,.chip::after,.stars i{animation:none !important;}
+  .char,.chip::after,.stars i{animation:none !important;}
   .card{animation-duration:.01s !important;}
   .msheet{animation:none;}
 }
@@ -262,11 +256,6 @@ html.embed .stage{border-radius:0;border:none;}
   <div class="brand"><i></i>담하로</div>
   <div class="ghost">DAMHARO</div>
   <div class="panes"><span class="pane pane-1"></span><span class="pane pane-2"></span><span class="pane pane-3"></span></div>
-  <svg class="halo" viewBox="0 0 210 210" fill="none" aria-hidden="true">
-    <circle cx="105" cy="105" r="88" stroke="#5be3e8" stroke-width="7" stroke-linecap="round" stroke-dasharray="150 90 200 120"/>
-    <circle cx="105" cy="105" r="64" stroke="#6fd8ff" stroke-width="6" stroke-linecap="round" stroke-dasharray="90 70 140 100" transform="rotate(140 105 105)"/>
-    <circle cx="105" cy="105" r="40" stroke="#5be3e8" stroke-width="6" stroke-linecap="round" stroke-dasharray="60 50 90 60" transform="rotate(250 105 105)"/>
-  </svg>
   <span class="dots tl"><i class="f"></i><i></i><i></i></span>
   <span class="dots tr"><i></i><i></i><i class="f"></i></span>
   <span class="dots br"><i></i><i></i><i class="f"></i></span>
