@@ -52,7 +52,7 @@ html.embed .stage{border-radius:0;border:none;}
   -webkit-text-stroke:1.5px rgba(255,255,255,.055);}
 
 /* 흑백 트립틱 — #27처럼 중앙 밴드, 캐릭터 양옆으로 보이게 */
-.panes{position:absolute;left:50%;top:96px;transform:translateX(-50%);height:960px;display:flex;gap:26px;z-index:1;pointer-events:none;}
+.panes{position:absolute;left:50%;top:96px;transform:translateX(-50%);height:800px;display:flex;gap:26px;z-index:1;pointer-events:none;}
 .pane{width:212px;height:100%;border:2px solid rgba(255,255,255,.82);border-radius:4px;overflow:hidden;
   background-image:url('assets/char.png');background-repeat:no-repeat;
   filter:grayscale(1) brightness(.68) contrast(1.1);
@@ -71,9 +71,10 @@ html.embed .stage{border-radius:0;border:none;}
 .dots.tl{left:38px;top:86px;} .dots.tr{right:44px;top:86px;justify-content:flex-end;}
 .dots.br{right:44px;bottom:56px;}
 
-.char{position:absolute;left:50%;bottom:-4px;top:auto;height:87%;width:auto;z-index:2;pointer-events:none;
+/* 버스트업 크롭 — 얼굴이 포스터 세로 중앙(#27 비율)에 오도록 확대, 허리 아래는 스테이지 밖 */
+.char{position:absolute;left:50%;top:390px;height:1370px;width:auto;z-index:2;pointer-events:none;
   transform:translate(calc(-50% + var(--avatar-x)),var(--avatar-y)) scale(var(--avatar-scale));
-  transform-origin:center bottom;filter:drop-shadow(0 0 40px rgba(111,216,255,.22));
+  transform-origin:center top;filter:drop-shadow(0 0 40px rgba(111,216,255,.22));
   animation:charFloat 9s ease-in-out infinite;}
 @keyframes charFloat{0%,100%{margin-top:0;}50%{margin-top:-10px;}}
 
