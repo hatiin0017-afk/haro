@@ -23,7 +23,7 @@ body.scaled{overflow-x:hidden;}
 html.embed body{background:transparent;padding:0;}
 .pp{font-family:'Fredoka',sans-serif;}
 
-.stage{width:940px;height:1350px;position:relative;margin:0 auto;
+.stage{width:940px;height:1300px;position:relative;margin:0 auto;
   border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;
   /* #27 포스터: 네이비 그라디언트 + 마젠타 코너 틴트 + 블루프린트 격자 */
   background:
@@ -75,8 +75,12 @@ html.embed .stage{border-radius:0;border:none;}
 .char{position:absolute;left:50%;top:390px;height:1370px;width:auto;z-index:2;pointer-events:none;
   transform:translate(calc(-50% + var(--avatar-x)),var(--avatar-y)) scale(var(--avatar-scale));
   transform-origin:center top;filter:drop-shadow(0 0 40px rgba(111,216,255,.22));
-  animation:charFloat 9s ease-in-out infinite;}
-@keyframes charFloat{0%,100%{margin-top:0;}50%{margin-top:-10px;}}
+  will-change:transform;animation:charFloat 6s ease-in-out infinite;}
+/* transform 애니메이션 = GPU 합성·서브픽셀 보간 (margin 방식은 픽셀 스냅으로 끊김) */
+@keyframes charFloat{
+  0%,100%{transform:translate(calc(-50% + var(--avatar-x)),var(--avatar-y)) scale(var(--avatar-scale));}
+  50%{transform:translate(calc(-50% + var(--avatar-x)),calc(var(--avatar-y) - 12px)) scale(var(--avatar-scale));}
+}
 
 /* ── 하단 타이포 블록 (#27 포지션) ── */
 .hero{position:absolute;left:60px;bottom:118px;z-index:6;}
@@ -110,15 +114,23 @@ html.embed .stage{border-radius:0;border:none;}
 .foot{position:absolute;right:44px;bottom:22px;z-index:6;font-size:11px;color:var(--dim);font-weight:600;}
 
 /* ═══ 모달 (냔냐 허브 방식 — 인라인 display:none + style.display 토글) ═══ */
-.modal{position:absolute;inset:0;z-index:60;align-items:center;justify-content:center;
-  background:rgba(5,9,18,.66);backdrop-filter:blur(12px);}
-.msheet{position:relative;width:830px;max-height:1180px;overflow-y:auto;
+.modal{position:absolute;inset:0;z-index:60;align-items:flex-start;justify-content:center;
+  padding:120px 0 40px;background:rgba(5,9,18,.66);backdrop-filter:blur(12px);}
+.msheet{position:relative;width:830px;max-height:100%;overflow-y:auto;
   background:rgba(13,20,38,.94);border:1px solid var(--line2);border-radius:20px;padding:36px 42px 44px;
   box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 60px rgba(111,216,255,.07);
   animation:pop .32s cubic-bezier(.34,1.4,.5,1);}
 @keyframes pop{from{opacity:0;transform:translateY(22px) scale(.96);}to{opacity:1;transform:none;}}
 .msheet::-webkit-scrollbar{width:8px;}
 .msheet::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:4px;}
+/* 모달 내 탭 이동 메뉴 */
+.mtabs{display:flex;gap:8px;margin-bottom:20px;padding-right:48px;}
+.mtabs a{display:flex;align-items:center;padding:8px 15px;border-radius:999px;border:1px solid var(--line);
+  color:var(--dim);font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s;
+  background:var(--panel);}
+.mtabs a:hover{border-color:var(--sky);color:var(--soft);}
+.mtabs a.act{color:#08121e;background:linear-gradient(135deg,var(--sky),var(--cyan));border-color:transparent;}
+.mtabs a:focus-visible{outline:2px solid var(--sky);outline-offset:2px;}
 .mclose{position:absolute;right:20px;top:20px;width:36px;height:36px;border:1px solid var(--line2);
   border-radius:10px;background:var(--panel);color:var(--soft);font-size:16px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;transition:.15s;}
@@ -283,6 +295,7 @@ html.embed .stage{border-radius:0;border:none;}
   <div class="modal" id="m-profile" style="display:none" role="dialog" aria-modal="true" aria-label="프로필">
     <div class="msheet">
       <button class="mclose" data-close aria-label="닫기">✕</button>
+      <nav class="mtabs"><a data-v="profile" href="#profile" class="act">프로필</a><a data-v="sched" href="#sched">일정</a><a data-v="song" href="#song">노래책</a><a data-v="upbo" href="#upbo">업보</a></nav>
       <div class="mhead"><div class="sh-l"><span class="sec-eng">PROFILE</span><span class="sec-h">프로필</span></div></div>
       <div class="pcards">
         <div class="card">
@@ -338,6 +351,7 @@ html.embed .stage{border-radius:0;border:none;}
   <div class="modal" id="m-sched" style="display:none" role="dialog" aria-modal="true" aria-label="일정">
     <div class="msheet">
       <button class="mclose" data-close aria-label="닫기">✕</button>
+      <nav class="mtabs"><a data-v="profile" href="#profile">프로필</a><a data-v="sched" href="#sched" class="act">일정</a><a data-v="song" href="#song">노래책</a><a data-v="upbo" href="#upbo">업보</a></nav>
       <div class="mhead">
         <div class="sh-l"><span class="sec-eng">SCHEDULE</span><span class="sec-h">일정</span></div>
         <div class="cal-nav"><button onclick="calMove(-1)" aria-label="이전 달">‹</button><span id="calTitle" class="pp"></span><button onclick="calMove(1)" aria-label="다음 달">›</button></div>
@@ -353,6 +367,7 @@ html.embed .stage{border-radius:0;border:none;}
   <div class="modal" id="m-song" style="display:none" role="dialog" aria-modal="true" aria-label="노래책">
     <div class="msheet">
       <button class="mclose" data-close aria-label="닫기">✕</button>
+      <nav class="mtabs"><a data-v="profile" href="#profile">프로필</a><a data-v="sched" href="#sched">일정</a><a data-v="song" href="#song" class="act">노래책</a><a data-v="upbo" href="#upbo">업보</a></nav>
       <div class="mhead">
         <div class="sh-l"><span class="sec-eng">SONGBOOK</span><span class="sec-h">노래책</span></div>
         <input id="songSearch" placeholder="곡 · 아티스트 검색" oninput="renderSongs()">
@@ -366,6 +381,7 @@ html.embed .stage{border-radius:0;border:none;}
   <div class="modal" id="m-upbo" style="display:none" role="dialog" aria-modal="true" aria-label="업보">
     <div class="msheet">
       <button class="mclose" data-close aria-label="닫기">✕</button>
+      <nav class="mtabs"><a data-v="profile" href="#profile">프로필</a><a data-v="sched" href="#sched">일정</a><a data-v="song" href="#song">노래책</a><a data-v="upbo" href="#upbo" class="act">업보</a></nav>
       <div class="mhead"><div class="sh-l"><span class="sec-eng">UPBO</span><span class="sec-h">업보</span></div></div>
       <div class="upbo-wrap">
         <div class="ub-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></div>
@@ -479,7 +495,7 @@ function renderUpcoming(){
     if(s<0.999){
       st.style.transformOrigin='top left';
       st.style.transform='scale('+s+')';
-      st.style.marginBottom=(-1350*(1-s))+'px';
+      st.style.marginBottom=(-1300*(1-s))+'px';
       document.body.classList.add('scaled');
     }else{
       st.style.transform=''; st.style.marginBottom='';
